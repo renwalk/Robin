@@ -1,0 +1,52 @@
+let sound, amplitude;
+
+function preload() {
+  sound = loadSound("robinisolated.wav");
+}
+
+function setup() {
+  
+  let cnv = createCanvas(600,600);
+  cnv.mouseClicked(togglePlay);
+
+  amplitude = new p5.Amplitude();
+
+}
+
+function draw() {
+  
+  background('#888181');
+  noStroke();
+
+  let level = amplitude.getLevel();
+  let size = map(level, 0, 1, 0, 600);
+  
+  //Wing
+    fill('#B1BBBA')
+  ellipse(width/2, height/2, size*100, size*100);
+    
+  //Belly
+    fill('#D2700C')
+  ellipse(width/2, height/2, size*70, size*70);
+  
+  //Head
+    fill('#291E22')
+  ellipse(width/2, height/2, size*30, size*30);
+  
+  //Beak
+  fill('#E2C944')
+  ellipse(width/2, height/2, size*10, size*10);
+
+    
+      
+}
+
+function togglePlay() {
+  if (sound.isPlaying() ){
+    sound.pause();
+  } else {
+    sound.loop();
+		amplitude = new p5.Amplitude();
+		amplitude.setInput(sound);
+  }
+}
